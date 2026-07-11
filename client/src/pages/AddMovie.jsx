@@ -1,14 +1,22 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
+
 function AddMovie() {
   const [movie, setMovie] = useState({
     title: "",
     description: "",
     genre: "",
+    poster: "",
+    backdrop: "",
+    cast: "",
+    director: "",
+    runtime: "",
+    rating: "",
+    releaseDate: "",
     trailer: "",
     year: "",
-    posterUrl: "",
     videoUrl: "",
   });
 
@@ -23,14 +31,26 @@ function AddMovie() {
     e.preventDefault();
 
     try {
-      await axios.post("http://https://streamflix-excj.onrender.com/api/movies", {
+      const token = localStorage.getItem("token");
+
+      await axios.post(`${API_BASE}/api/movies`, {
         title: movie.title,
         description: movie.description,
         genre: movie.genre,
+        poster: movie.poster,
+        backdrop: movie.backdrop,
+        cast: movie.cast,
+        director: movie.director,
+        runtime: movie.runtime,
+        rating: movie.rating,
+        releaseDate: movie.releaseDate,
         trailer: movie.trailer,
-        year: movie.year,
-        poster: movie.posterUrl,
+        year: Number(movie.year),
         videoUrl: movie.videoUrl,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       alert("🎉 Movie Added Successfully!");
@@ -39,14 +59,19 @@ function AddMovie() {
         title: "",
         description: "",
         genre: "",
+        poster: "",
+        backdrop: "",
+        cast: "",
+        director: "",
+        runtime: "",
+        rating: "",
+        releaseDate: "",
         trailer: "",
         year: "",
-        posterUrl: "",
         videoUrl: "",
       });
 
-    } catch (error) {
-      console.log(error);
+    } catch {
       alert("Failed to add movie");
     }
   };
@@ -62,10 +87,28 @@ function AddMovie() {
         <input name="genre" placeholder="Genre" value={movie.genre} onChange={changeHandler} />
         <br /><br />
 
+        <input name="cast" placeholder="Cast" value={movie.cast} onChange={changeHandler} />
+        <br /><br />
+
+        <input name="director" placeholder="Director" value={movie.director} onChange={changeHandler} />
+        <br /><br />
+
+        <input name="runtime" placeholder="Runtime" value={movie.runtime} onChange={changeHandler} />
+        <br /><br />
+
+        <input name="rating" placeholder="Rating" value={movie.rating} onChange={changeHandler} />
+        <br /><br />
+
+        <input name="releaseDate" placeholder="Release Date" value={movie.releaseDate} onChange={changeHandler} />
+        <br /><br />
+
         <input name="year" placeholder="Year" value={movie.year} onChange={changeHandler} />
         <br /><br />
 
-        <input name="posterUrl" placeholder="Poster URL" value={movie.posterUrl} onChange={changeHandler} />
+        <input name="poster" placeholder="Poster URL" value={movie.poster} onChange={changeHandler} />
+        <br /><br />
+
+        <input name="backdrop" placeholder="Backdrop URL" value={movie.backdrop} onChange={changeHandler} />
         <br /><br />
 
         <input name="videoUrl" placeholder="Video URL" value={movie.videoUrl} onChange={changeHandler} />

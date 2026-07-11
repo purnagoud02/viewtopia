@@ -1,43 +1,22 @@
 const express = require("express");
 const router = express.Router();
+const protect = require("../middleware/authMiddleware");
+const {
+  getSubscription,
+  getSubscriptionHistory,
+  createOrUpdateSubscription,
+  upgradePlan,
+  downgradePlan,
+  cancelSubscription,
+  getInvoices,
+} = require("../controllers/subscriptionController");
 
-const Subscription = require("../models/Subscription");
-
-// GET subscription
-router.get("/:userId", async (req, res) => {
-  try {
-    const sub = await Subscription.findOne({
-      userId: req.params.userId,
-    });
-
-    res.json(sub);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// CREATE / UPDATE subscription
-router.post("/", async (req, res) => {
-  try {
-    const { userId, plan } = req.body;
-
-    let sub = await Subscription.findOne({ userId });
-
-    if (sub) {
-      sub.plan = plan;
-      sub.isActive = true;
-      await sub.save();
-    } else {
-      sub = await Subscription.create({
-        userId,
-        plan,
-      });
-    }
-
-    res.json(sub);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.get("/", protect, getSubscription);
+router.get("/history", protect, getSubscriptionHistory);
+router.get("/invoices", protect, getInvoices);
+router.post("/", protect, createOrUpdateSubscription);
+router.post("/upgrade", protect, upgradePlan);
+router.post("/downgrade", protect, downgradePlan);
+router.post("/cancel", protect, cancelSubscription);
 
 module.exports = router;

@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
 
 function EditMovie() {
   const { id } = useParams();
@@ -9,28 +11,58 @@ function EditMovie() {
   const [movie, setMovie] = useState({
     title: "",
     genre: "",
-    year: "",
     poster: "",
+    backdrop: "",
+    cast: "",
+    director: "",
+    runtime: "",
+    rating: "",
+    releaseDate: "",
+    year: "",
     trailer: "",
     videoUrl: "",
     description: "",
   });
 
-  useEffect(() => {
-    fetchMovie();
-  }, []);
-
-  const fetchMovie = async () => {
+  const fetchMovie = useCallback(async () => {
     try {
-      const { data } = await axios.get(
-        `http://https://streamflix-excj.onrender.com/api/movies/${id}`
-      );
-
+      const { data } = await axios.get(`${API_BASE}/api/movies/${id}`);
       setMovie(data);
-    } catch (error) {
-      console.log(error);
+    } catch {
+      setMovie({
+        title: "",
+        genre: "",
+        poster: "",
+        backdrop: "",
+        cast: "",
+        director: "",
+        runtime: "",
+        rating: "",
+        releaseDate: "",
+        year: "",
+        trailer: "",
+        videoUrl: "",
+        description: "",
+      });
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadMovie = async () => {
+      await fetchMovie();
+      if (!isMounted) {
+        return;
+      }
+    };
+
+    loadMovie();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [fetchMovie]);
 
   const changeHandler = (e) => {
     setMovie({
@@ -43,16 +75,20 @@ function EditMovie() {
     e.preventDefault();
 
     try {
-      await axios.put(
-        `http://https://streamflix-excj.onrender.com/api/movies/${id}`,
-        movie
-      );
+      const token = localStorage.getItem("token");
+      await axios.put(`${API_BASE}/api/movies/${id}`, {
+        ...movie,
+        year: Number(movie.year),
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       alert("Movie Updated Successfully!");
 
       navigate("/admin/movies");
-    } catch (error) {
-      console.log(error);
+    } catch {
       alert("Update Failed");
     }
   };
@@ -77,6 +113,41 @@ function EditMovie() {
         />
 
         <input
+          name="cast"
+          value={movie.cast}
+          onChange={changeHandler}
+          placeholder="Cast"
+        />
+
+        <input
+          name="director"
+          value={movie.director}
+          onChange={changeHandler}
+          placeholder="Director"
+        />
+
+        <input
+          name="runtime"
+          value={movie.runtime}
+          onChange={changeHandler}
+          placeholder="Runtime"
+        />
+
+        <input
+          name="rating"
+          value={movie.rating}
+          onChange={changeHandler}
+          placeholder="Rating"
+        />
+
+        <input
+          name="releaseDate"
+          value={movie.releaseDate}
+          onChange={changeHandler}
+          placeholder="Release Date"
+        />
+
+        <input
           name="year"
           value={movie.year}
           onChange={changeHandler}
@@ -88,6 +159,13 @@ function EditMovie() {
           value={movie.poster}
           onChange={changeHandler}
           placeholder="Poster URL"
+        />
+
+        <input
+          name="backdrop"
+          value={movie.backdrop}
+          onChange={changeHandler}
+          placeholder="Backdrop URL"
         />
 
         <input

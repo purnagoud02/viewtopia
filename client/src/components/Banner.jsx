@@ -2,99 +2,60 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
+
 function Banner() {
-  const [movie, setMovie] =useState(null);
+  const [movie, setMovie] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     axios
-      .get("http://https://streamflix-excj.onrender.com/api/movies")
+      .get(`${API_BASE}/api/movies`)
       .then((res) => {
-        if (res.data.length > 0) {
+        if (isMounted && res.data.length > 0) {
           setMovie(res.data[0]);
         }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setMovie(null);
+        }
       });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (!movie) return null;
 
   const poster = movie.poster.startsWith("/uploads")
-    ? `http://https://streamflix-excj.onrender.com${movie.poster}`
+    ? `${API_BASE}${movie.poster}`
     : movie.poster;
 
   return (
-    <div
+    <section
+      className="hero-banner"
       style={{
-     height: "70vh",
-        backgroundImage: `linear-gradient(to right, rgba(0,0,0,.85), rgba(0,0,0,.3)), url(${poster})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        display: "flex",
-        alignItems: "center",
-        paddingLeft: "80px",
+        backgroundImage: `linear-gradient(to right, rgba(5, 5, 10, 0.96), rgba(5, 5, 10, 0.2)), url(${poster})`,
       }}
     >
-      <div style={{ maxWidth: "550px" }}>
-        <h1
-          style={{
-            fontSize: "70px",
-            marginBottom: "20px",
-            color: "white",
-          }}
-        >
-          {movie.title}
-        </h1>
+      <div className="hero-copy">
+        <span className="hero-label">Featured</span>
+        <h1>{movie.title}</h1>
+        <p>{movie.description}</p>
 
-        <p
-          style={{
-            color: "#ddd",
-            fontSize: "22px",
-            lineHeight: "35px",
-          }}
-        >
-          {movie.description}
-        </p>
-
-        <div
-          style={{
-            marginTop: "35px",
-            display: "flex",
-            gap: "20px",
-          }}
-        >
-          <Link to={`/watch/${movie._id}`}>
-            <button
-              style={{
-                background: "#fff",
-                color: "#000",
-                padding: "15px 35px",
-                border: "none",
-                borderRadius: "6px",
-                fontSize: "18px",
-                cursor: "pointer",
-              }}
-            >
-              ▶ Play
-            </button>
+        <div className="hero-buttons">
+          <Link to={`/watch/${movie._id}`} className="btn-primary">
+            ▶ Play
           </Link>
-
-          <Link to={`/movie/${movie._id}`}>
-            <button
-              style={{
-                background: "#444",
-                color: "#fff",
-                padding: "15px 35px",
-                border: "none",
-                borderRadius: "6px",
-                fontSize: "18px",
-                cursor: "pointer",
-              }}
-            >
-              ℹ More Info
-            </button>
+          <Link to={`/movie/${movie._id}`} className="btn-secondary">
+            More Info
           </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

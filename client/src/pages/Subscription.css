@@ -1,0 +1,554 @@
+/* Subscription Page */
+.subscription-page {
+  width: 100%;
+  background: radial-gradient(circle at top, #111 0%, #050505 65%);
+  padding-bottom: 80px;
+}
+
+/* Hero Section */
+.subscription-hero {
+  text-align: center;
+  padding: 100px 40px;
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.1) 0%, rgba(255, 61, 61, 0.05) 100%);
+}
+
+.subscription-hero h1 {
+  font-size: 56px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+.subscription-hero p {
+  font-size: 18px;
+  color: #a0a0a0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Status Messages */
+.subscription-status,
+.subscription-error {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px 30px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.subscription-status {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  color: #4caf50;
+}
+
+.subscription-error {
+  background: rgba(229, 9, 20, 0.1);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  color: #ff6b6b;
+}
+
+/* Billing Cycle Toggle */
+.billing-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 40px auto;
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toggle-btn {
+  position: relative;
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  color: #a0a0a0;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+  color: #f3f3f3;
+}
+
+.toggle-btn.active {
+  background: linear-gradient(135deg, #e50914, #ff3d3d);
+  color: white;
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background: rgba(76, 175, 80, 0.2);
+  border-radius: 4px;
+  font-size: 12px;
+  color: #4caf50;
+  font-weight: 700;
+}
+
+/* Plans Container */
+.plans-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 1400px;
+  margin: 60px auto;
+  padding: 0 40px;
+}
+
+@media (max-width: 768px) {
+  .plans-container {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+}
+
+/* Plan Card */
+.plan-card {
+  position: relative;
+  padding: 40px 30px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(229, 9, 20, 0.15);
+}
+
+.plan-card.highlighted {
+  border-color: #e50914;
+  background: rgba(229, 9, 20, 0.05);
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .plan-card.highlighted {
+    transform: none;
+  }
+}
+
+.plan-card.current {
+  border-color: #4caf50;
+  background: rgba(76, 175, 80, 0.05);
+}
+
+.best-value-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #e50914, #ff3d3d);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.current-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Plan Header */
+.plan-header {
+  margin-bottom: 24px;
+}
+
+.plan-header h3 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #f3f3f3;
+}
+
+.plan-description {
+  font-size: 14px;
+  color: #a0a0a0;
+  margin: 0;
+}
+
+/* Plan Price */
+.plan-price {
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.price-free {
+  font-size: 18px;
+  font-weight: 700;
+  color: #4caf50;
+}
+
+.currency {
+  font-size: 18px;
+  color: #a0a0a0;
+  margin-right: 4px;
+}
+
+.amount {
+  font-size: 48px;
+  font-weight: 900;
+  color: #f3f3f3;
+}
+
+.period {
+  font-size: 14px;
+  color: #a0a0a0;
+  margin-left: 4px;
+}
+
+.savings {
+  font-size: 13px;
+  color: #4caf50;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+/* Plan Features */
+.plan-features {
+  flex: 1;
+  margin-bottom: 32px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #d0d0d0;
+}
+
+.feature-icon {
+  color: #4caf50;
+  font-weight: 900;
+  font-size: 16px;
+}
+
+/* Plan Button */
+.plan-button {
+  width: 100%;
+  padding: 14px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f3f3f3;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.plan-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.plan-button.btn-primary {
+  background: linear-gradient(135deg, #e50914, #ff3d3d);
+  border-color: #e50914;
+  color: white;
+}
+
+.plan-button.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.plan-button.btn-primary.active {
+  background: linear-gradient(135deg, #cc070f, #ff2020);
+}
+
+.plan-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Checkout Modal */
+.checkout-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.checkout-sheet {
+  width: min(680px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: linear-gradient(145deg, rgba(18, 18, 18, 0.96), rgba(8, 8, 8, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.checkout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.checkout-eyebrow {
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 11px;
+  color: #ff6b6b;
+  font-weight: 700;
+}
+
+.checkout-header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.checkout-close {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.checkout-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.checkout-card {
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.checkout-card p,
+.checkout-card span {
+  display: block;
+  margin: 0;
+  color: #a0a0a0;
+}
+
+.checkout-card strong {
+  display: block;
+  margin: 6px 0 4px;
+  font-size: 20px;
+  color: #f3f3f3;
+}
+
+.checkout-card.accent {
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.16), rgba(255, 61, 61, 0.06));
+  border-color: rgba(229, 9, 20, 0.28);
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  text-align: left;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #f3f3f3;
+  cursor: pointer;
+}
+
+.payment-method.active {
+  border-color: #ff3d3d;
+  background: rgba(229, 9, 20, 0.12);
+}
+
+.payment-method strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.payment-method small {
+  display: block;
+  color: #9c9c9c;
+  font-size: 12px;
+}
+
+.payment-icon {
+  font-size: 20px;
+}
+
+.upi-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.upi-field span {
+  color: #d1d1d1;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.upi-field input {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  padding: 13px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  font-size: 15px;
+}
+
+.checkout-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.checkout-footer p {
+  margin: 0;
+  color: #9b9b9b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* FAQ Section */
+.subscription-faq {
+  max-width: 1200px;
+  margin: 100px auto;
+  padding: 0 40px;
+}
+
+.subscription-faq h2 {
+  font-size: 40px;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 60px;
+  letter-spacing: -0.5px;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.faq-item {
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+}
+
+.faq-item h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #f3f3f3;
+}
+
+.faq-item p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #a0a0a0;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .subscription-hero {
+    padding: 60px 20px;
+  }
+
+  .subscription-hero h1 {
+    font-size: 36px;
+  }
+
+  .subscription-hero p {
+    font-size: 16px;
+  }
+
+  .subscription-faq {
+    padding: 0 20px;
+  }
+
+  .subscription-faq h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+
+  .faq-grid {
+    gap: 20px;
+  }
+
+  .checkout-summary,
+  .payment-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-sheet {
+    padding: 20px;
+  }
+
+  .checkout-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

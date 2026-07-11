@@ -1,4 +1,38 @@
+const jwt = require("jsonwebtoken");
 const Movie = require("../models/Movie");
+const User = require("../models/User");
+
+const getRequestUser = async (req) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return null;
+    }
+
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return await User.findById(decoded.id).select("-password -refreshToken");
+  } catch {
+    return null;
+  }
+};
+
+const normalizeMovie = (movie) => ({
+  ...movie.toObject(),
+  poster: movie.poster || "",
+  backdrop: movie.backdrop || "",
+  description: movie.description || "",
+  genre: movie.genre || "",
+  cast: movie.cast || "",
+  director: movie.director || "",
+  runtime: movie.runtime || "",
+  rating: movie.rating || "",
+  releaseDate: movie.releaseDate || "",
+  trailer: movie.trailer || "",
+  videoUrl: movie.videoUrl || "",
+  year: movie.year || new Date().getFullYear(),
+  isPremium: Boolean(movie.isPremium),
+});
 
 // Add Movie
 const addMovie = async (req, res) => {
@@ -15,8 +49,10 @@ const addMovie = async (req, res) => {
 // Get All Movies
 const getMovies = async (req, res) => {
   try {
+    const user = await getRequestUser(req);
     const movies = await Movie.find();
-    res.json(movies);
+    const visibleMovies = movies.filter((movie) => !movie.isPremium || (user && user.isPremium));
+    res.json(visibleMovies.map(normalizeMovie));
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -35,7 +71,12 @@ const getMovieById = async (req, res) => {
       });
     }
 
-    res.json(movie);
+    const user = await getRequestUser(req);
+    if (movie.isPremium && (!user || !user.isPremium)) {
+      return res.status(403).json({ message: "Premium subscription required to access this title" });
+    }
+
+    res.json(normalizeMovie(movie));
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -54,7 +95,7 @@ const updateMovie = async (req, res) => {
       }
     );
 
-    res.json(movie);
+    res.json(normalizeMovie(movie));
   } catch (error) {
     res.status(500).json({
       message: error.message,

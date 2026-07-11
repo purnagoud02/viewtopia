@@ -1,38 +1,53 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
 
 function ManageMovies() {
   const [movies, setMovies] = useState([]);
 
-  useEffect(() => {
-    fetchMovies();
+  const fetchMovies = useCallback(async () => {
+    try {
+      const { data } = await axios.get(`${API_BASE}/api/movies`);
+      setMovies(data);
+    } catch {
+      setMovies([]);
+    }
   }, []);
 
-  const fetchMovies = async () => {
-    try {
-      const { data } = await axios.get(
-        "http://https://streamflix-excj.onrender.com/api/movies"
-      );
-      setMovies(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadMovies = async () => {
+      await fetchMovies();
+      if (!isMounted) {
+        return;
+      }
+    };
+
+    loadMovies();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [fetchMovies]);
 
   const deleteMovie = async (id) => {
     if (!window.confirm("Delete this movie?")) return;
 
     try {
-      await axios.delete(
-        `http://https://streamflix-excj.onrender.com/api/movies/${id}`
-      );
+      const token = localStorage.getItem("token");
+      await axios.delete(`${API_BASE}/api/movies/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       alert("Movie Deleted");
 
       fetchMovies();
-    } catch (error) {
-      console.log(error);
+    } catch {
       alert("Delete Failed");
     }
   };

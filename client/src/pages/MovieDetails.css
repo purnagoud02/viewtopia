@@ -49,6 +49,370 @@
   border-radius: 6px;
 }
 
+/* Movie Detail Page */
+.movie-detail-page {
+  width: 100%;
+  background: radial-gradient(circle at top, #111 0%, #050505 65%);
+}
+
+.detail-hero {
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 60px;
+  gap: 60px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 1024px) {
+  .detail-hero {
+    min-height: 500px;
+    padding: 60px 40px;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .detail-hero {
+    min-height: 400px;
+    padding: 40px 20px;
+    gap: 20px;
+    justify-content: center;
+  }
+}
+
+.detail-hero__content {
+  flex: 1;
+  max-width: 700px;
+  z-index: 10;
+}
+
+.detail-hero__poster {
+  width: 300px;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 768px) {
+  .detail-hero__poster {
+    display: none;
+  }
+}
+
+.detail-hero h1 {
+  font-size: 64px;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+@media (max-width: 768px) {
+  .detail-hero h1 {
+    font-size: 40px;
+  }
+}
+
+.detail-rating {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.rating-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffd700;
+}
+
+.vote-count {
+  font-size: 14px;
+  color: #a0a0a0;
+}
+
+.detail-meta {
+  font-size: 16px;
+  color: #d0d0d0;
+  margin-bottom: 16px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #e50914;
+  margin-bottom: 12px;
+}
+
+.detail-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #d0d0d0;
+  margin-bottom: 32px;
+  max-width: 600px;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.detail-actions a,
+.detail-actions button {
+  min-width: 160px;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 14px 28px;
+}
+
+/* Videos Section */
+.detail-videos {
+  padding: 80px 60px;
+  background: linear-gradient(180deg, rgba(5, 5, 10, 0) 0%, rgba(5, 5, 10, 0.5) 100%);
+}
+
+@media (max-width: 1024px) {
+  .detail-videos {
+    padding: 60px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .detail-videos {
+    padding: 40px 20px;
+  }
+}
+
+.detail-videos h2 {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 40px;
+  letter-spacing: -0.5px;
+}
+
+.video-player-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+.main-video {
+  position: relative;
+  width: 100%;
+}
+
+.main-video iframe {
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(229, 9, 20, 0.2);
+}
+
+.video-title-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.video-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+.video-category {
+  font-size: 13px;
+  color: #c3c3c3;
+  background: rgba(255,255,255,0.08);
+  padding: 6px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.video-playlist h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #f3f3f3;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .video-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+}
+
+.video-thumbnail {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  overflow: hidden;
+}
+
+.video-thumbnail:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(229, 9, 20, 0.3);
+  transform: translateY(-4px);
+}
+
+.video-carousel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.video-thumb {
+  flex: 1 1 180px;
+  min-width: 160px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px;
+  text-align: left;
+  color: #f5f5f5;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.video-thumb.active {
+  background: rgba(229, 9, 20, 0.16);
+  border-color: rgba(229, 9, 20, 0.65);
+}
+
+.video-thumb__title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.video-thumb__type {
+  font-size: 13px;
+  color: #c3c3c3;
+}
+
+.video-thumb:hover {
+  transform: translateY(-4px);
+}
+
+.thumbnail-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.video-thumbnail:hover .thumbnail-overlay {
+  opacity: 1;
+}
+
+.play-icon {
+  font-size: 24px;
+  color: #e50914;
+}
+
+.video-thumbnail p {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e0e0e0;
+  margin-bottom: 4px;
+}
+
+.video-thumbnail small {
+  font-size: 11px;
+  color: #a0a0a0;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Detail Panel */
+.detail-panel {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .detail-panel {
+    padding: 40px 20px;
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+.detail-panel__card {
+  padding: 30px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.detail-panel__card h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #f3f3f3;
+}
+
+.detail-panel__card p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #d0d0d0;
+}
+
+.detail-panel__card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.detail-panel__card li {
+  padding: 12px 0;
+  font-size: 15px;
+  color: #d0d0d0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.detail-panel__card li:last-child {
+  border-bottom: none;
+}
+
+.detail-panel__card strong {
+  color: #f3f3f3;
+  font-weight: 600;
+}
+
 .watchlist-btn {
   background: #333;
   color: white;

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
+
 function Watchlist() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -8,25 +10,22 @@ function Watchlist() {
   useEffect(() => {
     const fetchWatchlist = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        console.log("USER:", user);
+        const user = JSON.parse(localStorage.getItem("user") || "null");
 
         if (!user?._id) {
-          console.log("No user found");
           setLoading(false);
           return;
         }
 
-        const { data } = await axios.get(
-          `http://https://streamflix-excj.onrender.com/api/watchlist/${user._id}`
-        );
-
-        console.log("WATCHLIST:", data);
-
+        const token = localStorage.getItem("token");
+        const { data } = await axios.get(`${API_BASE}/api/watchlist/${user._id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setMovies(data || []);
-      } catch (error) {
-        console.log(error);
+      } catch {
+        setMovies([]);
       } finally {
         setLoading(false);
       }
